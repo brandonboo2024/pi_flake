@@ -15,12 +15,17 @@ agent_core_integrity="$(npm view "@earendil-works/pi-agent-core@${version}" dist
 ai_integrity="$(npm view "@earendil-works/pi-ai@${version}" dist.integrity)"
 tui_integrity="$(npm view "@earendil-works/pi-tui@${version}" dist.integrity)"
 
+PI_VERSION="$version" \
+PI_SRC_HASH="$src_hash" \
+PI_AGENT_CORE_INTEGRITY="$agent_core_integrity" \
+PI_AI_INTEGRITY="$ai_integrity" \
+PI_TUI_INTEGRITY="$tui_integrity" \
 perl -0pi -e '
-  s/version = "[^"]+";/version = "'"$version"'";/;
-  s/hash = "sha256-[^"]+";/hash = "'"$src_hash"'";/;
-  s/piAgentCoreIntegrity = "[^"]+";/piAgentCoreIntegrity = "'"$agent_core_integrity"'";/;
-  s/piAiIntegrity = "[^"]+";/piAiIntegrity = "'"$ai_integrity"'";/;
-  s/piTuiIntegrity = "[^"]+";/piTuiIntegrity = "'"$tui_integrity"'";/;
+  s/version = "[^"]+";/version = "$ENV{PI_VERSION}";/;
+  s/hash = "sha256-[^"]+";/hash = "$ENV{PI_SRC_HASH}";/;
+  s/piAgentCoreIntegrity = "[^"]+";/piAgentCoreIntegrity = "$ENV{PI_AGENT_CORE_INTEGRITY}";/;
+  s/piAiIntegrity = "[^"]+";/piAiIntegrity = "$ENV{PI_AI_INTEGRITY}";/;
+  s/piTuiIntegrity = "[^"]+";/piTuiIntegrity = "$ENV{PI_TUI_INTEGRITY}";/;
   s/npmDepsHash = ("sha256-[^"]+"|lib\.fakeHash);/npmDepsHash = lib.fakeHash;/;
 ' package.nix
 
@@ -47,7 +52,8 @@ if [[ -z "$npm_deps_hash" ]]; then
   exit "$build_status"
 fi
 
-perl -0pi -e "s/npmDepsHash = lib\\.fakeHash;/npmDepsHash = \"$npm_deps_hash\";/" package.nix
+PI_NPM_DEPS_HASH="$npm_deps_hash" \
+perl -0pi -e 's/npmDepsHash = lib\.fakeHash;/npmDepsHash = "$ENV{PI_NPM_DEPS_HASH}";/' package.nix
 nix build .#pi --no-link
 nix flake update
 
