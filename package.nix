@@ -6,20 +6,20 @@
 }:
 
 let
-  piAgentCoreIntegrity = "sha512-Ksvnu6CpQLYGbCSgnQEetzliI7yb+QkqtSlmmunJ69QluT45kd3DjQZRNHfRLk++Dd02Y8QvsRKMopSJCcWoWw==";
-  piAiIntegrity = "sha512-lMSput/haP5uZAGbXhS5rAYd3GB7GYdJkoAUxg3VFummBeqGqGqllaTWrbHFN12kVGyVfWHhdySNXkiqVh65Iw==";
-  piTuiIntegrity = "sha512-cpmkEM1aEuGUx6YZM36VlzpulwLzqD5T2cUEkGHndDTNGEbnn5sj/9SYm+QBfKjvZsWoHfZuFBnu4+hh96/FbA==";
+  piAgentCoreIntegrity = "sha512-8m5fcqRpoGpq3QY0I/tFXROSTmPwBb1dAuzYZO3XYgjsdCokkRMAGRjA9P8s/UD6Jy9yy69lyE4H6sz/5A1TmQ==";
+  piAiIntegrity = "sha512-ZpSwaD7oNpsjn9vtEatZQNT9PSdDJXi6rFeY5Qv+OHQGFDKlmcrfJE4ypm4SAc/fBECPs4Rdi3l+YjVtXYrkKw==";
+  piTuiIntegrity = "sha512-QerB+0wUc6eEO8MwvzOQGtzcsbwo6y8VvdxYU6vGcakz6ofJZWhrmwrknp1dCGx3bEtCf+siUIxEzkqvFCzIsg==";
 in
 (buildNpmPackage.override { nodejs = nodejs_22; }) rec {
   pname = "pi-coding-agent";
-  version = "0.79.3";
+  version = "0.79.8";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-${version}.tgz";
-    hash = "sha256-+yjLrpqRvHo+dnKVBCdl/X4mIYPK50LwHAx0sgyN4yg=";
+    hash = "sha256-SU3oOmLfP3o8MZe6AIcIkPO8w1YbvMm50KnGLftOPmI=";
   };
 
-  npmDepsHash = "sha256-8hnRJ0MU4N2Qev97HiaE6sH9Dzfj3DWUdfu3U+oDtpw=";
+  npmDepsHash = "sha256-JIltmhs5pTkVyJXZfq46Q4un8pEvNbg6SYAfJ0UswYM=";
   npmDepsFetcherVersion = 2;
 
   postPatch = ''
@@ -27,19 +27,8 @@ in
       --replace-fail '"resolved": "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-${version}.tgz"' '"resolved": "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-${version}.tgz", "integrity": "${piAgentCoreIntegrity}"' \
       --replace-fail '"resolved": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-${version}.tgz"' '"resolved": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-${version}.tgz", "integrity": "${piAiIntegrity}"' \
       --replace-fail '"resolved": "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-${version}.tgz"' '"resolved": "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-${version}.tgz", "integrity": "${piTuiIntegrity}"'
-    substituteInPlace package.json \
-      --replace-fail '	"devDependencies": {
-		"@types/cross-spawn": "6.0.6",
-		"@types/diff": "7.0.2",
-		"@types/hosted-git-info": "3.0.5",
-		"@types/ms": "2.1.0",
-		"@types/node": "24.12.4",
-		"@types/proper-lockfile": "4.1.4",
-		"shx": "0.4.0",
-		"typescript": "5.9.3",
-		"vitest": "3.2.4"
-	},
-' ""
+    # Remove devDependencies block from package.json (avoids dependency on specific versions)
+    sed -i '/"devDependencies": {/,/^[[:space:]]*},/d' package.json
   '';
 
   dontNpmBuild = true;
