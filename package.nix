@@ -6,20 +6,20 @@
 }:
 
 let
-  piAgentCoreIntegrity = "sha512-yqbh68CyhqxMov/jUogFJfMqlu2Gd37GAki+tr59YCmAPHfomiCA5ESzusXtpGzABeiZFC/OrRdQ4GwCCOMIHA==";
-  piAiIntegrity = "sha512-hzHE7Z8l5mgJk+ke67Lge0rwS2+wbKJrFKl9o5M1R1rh33+cCT7D1AHz1OAtX5wFs90E1/BTGhyJRTUHaMxGvQ==";
-  piTuiIntegrity = "sha512-OMEe+Zt8oQYi/rCq3upxsTlIScWL0FPhXwQus34TbQb3EmTx88S7Uzx32JxvQiEeWOw8eDCdJf2PBUBE9r6wIg==";
+  piAgentCoreIntegrity = "sha512-bnS9DpOKK5T/F/gQkaOnYdMsuuciWiScfAHHWC+k5OQ0HxjSqMFQvp8keurULLoT4+v8NHv4V14pNvd4hsfC0Q==";
+  piAiIntegrity = "sha512-8MvW9+zno13sXDuT2kFMnWeTNUufUhPeZDRVO+igGoBRCDWgn7Xh2FkRQI1mRuet6QhF4ENQuLYdIAOyG6BhNw==";
+  piTuiIntegrity = "sha512-9IDjQOXne7t9l2s2YcjnIBxsVNVPE7qScVSB3YmFlXsBW4pfo2gOElTxggV84KrRiGqABnlFPBWbf0k54hszHQ==";
 in
 (buildNpmPackage.override { nodejs = nodejs_22; }) rec {
   pname = "pi-coding-agent";
-  version = "0.81.1";
+  version = "0.82.0";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-${version}.tgz";
-    hash = "sha256-QgETwCghYOYYFlb9Fs8YdC92v5BA7j37nLZ+PmrVZBw=";
+    hash = "sha256-qcnX+GGnUIr15RbUk6A+rB/vNvi1b7DSBNpkOVDl2wg=";
   };
 
-  npmDepsHash = "sha256-KvM/iSVwaKg8eJwSRSXSM1l6wUgHdRipcS5QAWlMkQI=";
+  npmDepsHash = "sha256-/mIElCddwfyq5dtWfmsIs9ObnN7eWnk1RB9h/pi5X70=";
   npmDepsFetcherVersion = 2;
 
   postPatch = ''
