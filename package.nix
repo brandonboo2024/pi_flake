@@ -8,12 +8,11 @@
 let
   workspaceIntegrities = builtins.fromJSON ''
     {
-      "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-0.84.1.tgz": "sha512-evyzXYWCLQGmcaBYHlmSku02r8qoN4SGI60GZABo6iV+H+nqX+P9ud8fEZ4GmRq9mUSREvvfX+w9dA9ThF9C6w==",
-      "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.84.1.tgz": "sha512-wMsAdJMxuNri08vLqTyYVI201DQQezGhPSTkzYsHdw5dYX3rCNwEmSvpaAwhi7ELKI/2tE/CEgSWg/6iRxSgdQ==",
-      "https://registry.npmjs.org/@earendil-works/pi-client/-/pi-client-0.84.1.tgz": "sha512-/V5hGHE4Zq+jG0GtwIB9PyBUOGd6gBLZ7lkQYFKchKnxYHeH3rmWC5xw4kpnZKKBuBuFTdLVbU9vEjlAGMMb2A==",
-      "https://registry.npmjs.org/@earendil-works/pi-protocol/-/pi-protocol-0.84.1.tgz": "sha512-Ox1pciyeSPGEEUcxvR0/dJcrY7C6hrEGA8y71rOsvSIUlXN1Cbp/be/eoL71OGDBk5O97TeQPfWN6Ju/2Ehjww==",
-      "https://registry.npmjs.org/@earendil-works/pi-telemetry/-/pi-telemetry-0.84.1.tgz": "sha512-180/xGJtsq7IoR3p9EKWjRd0e9M4DkxInhlo9xyD7prDC7Qrhqq+nhvwrW0lFjPfXcEI2FSHmGCSyvSJE9GsaQ==",
-      "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-0.84.1.tgz": "sha512-udeXFbgEhJ6JiB0uguwNVNkDy2FENfmtQwPcY+/iJ8GWeq18wkal1tKqa5YyeH0IqtX1vG0cGh8zfSYzyzVuLA=="
+      "https://registry.npmjs.org/@earendil-works/chord/-/chord-0.86.1.tgz": "sha512-GzUr5n4tFBHUYxN9CjcRHK8QWo9tbxNrZu6iWPQ+PFiFrLASvSZOKeAVAgh3gHv/t0X5OvUpFlrMQ/nEFfCYpg==",
+      "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-0.86.1.tgz": "sha512-8TbBzhYsDeu5V1Zl2NsyrBqJAzX1EiEL3Np3ZjGpy0pSDdGRVOpcyW1qruLqfWmEqGcnxmvgnTMLS/wJNZO2XQ==",
+      "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.86.1.tgz": "sha512-1XHhI6D/fyQdsBieHC/E/4zGKVOoGe4yDyX67VXvzoYkFsX/qE7NpZE7E1RC8e6Bz8B9oG/P+MQFXikv2/BGEg==",
+      "https://registry.npmjs.org/@earendil-works/pi-telemetry/-/pi-telemetry-0.86.1.tgz": "sha512-SOcEqOS3oVGgKeahs2jHB906d8hFjuLP+RBee8xKYMRgw5KAeWHNg+YABfL0ALlp3Bt6tW4b632MLghc3vnTog==",
+      "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-0.86.1.tgz": "sha512-FU/zU/zG4RWokcZt+BVXXcieWi5ggvYnWP2kkB5XXjMaHRoy5BDhcZJ9JAnLTN9MwrCRoXgPQxOI0bFqwYeZkQ=="
     }
   '';
   workspaceIntegrityReplacements = lib.concatStringsSep " \\\n      " (
@@ -25,14 +24,14 @@ let
 in
 (buildNpmPackage.override { nodejs = nodejs_22; }) rec {
   pname = "pi-coding-agent";
-  version = "0.84.1";
+  version = "0.86.1";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-${version}.tgz";
-    hash = "sha256-ppoYWWAX6RlV/Q/Wd75p+rW26gHVsGIHvO407hUivCA=";
+    hash = "sha256-jf+T5voD4NSY5yp40se7XwlPXgbuJo5qvQALophKC2o=";
   };
 
-  npmDepsHash = "sha256-wQLXYRCK7uJH6Js6MvCfagOnTenrP1n97gCpF/H+eIg=";
+  npmDepsHash = "sha256-hEYJLkwZca+iUwflHamQFTtmAn7ESB79K2nklDuAvKU=";
   npmDepsFetcherVersion = 2;
 
   postPatch = ''
