@@ -24,11 +24,16 @@ stays under `~/.pi/agent`, and no provider keys or LiteLLM defaults are bundled.
 ## Updating
 
 ```sh
-./update.sh 0.78.0
+./update.sh 1.0.3
 ```
 
 Without an argument, `update.sh` asks npm for the latest published version. The
 script refreshes the npm tarball hash, npm dependency hash, and `flake.lock`.
+
+Since Pi 1.0.1 the published npm tarball no longer ships a lockfile, so the
+script also generates a `package-lock.json` from the tarball's `package.json`
+and vendors it in this repo. That lockfile is what makes the dependency install
+reproducible; commit it together with `package.nix` and `flake.lock`.
 
 ## Dotfiles integration
 
