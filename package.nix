@@ -7,11 +7,11 @@
 
 (buildNpmPackage.override { nodejs = nodejs_22; }) rec {
   pname = "pi-coding-agent";
-  version = "1.0.3";
+  version = "1.2.0";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-${version}.tgz";
-    hash = "sha256-EG6tsfgj9y8BLAjyO9NuQ1+eYvbIHpil2PcMipVD3QU=";
+    hash = "sha256-Hf7TCPRqaa7Aa/ncIHAN3G/iNwsYmPATNLeJg5dUHmY=";
   };
 
   # As of 1.0.1 the published npm tarball no longer ships a lockfile
@@ -26,7 +26,7 @@
     sed -i '/"devDependencies": {/,/^[[:space:]]*},/d' package.json
   '';
 
-  npmDepsHash = "sha256-s8mPPnGvdo0Irf2Q6/9awV1lw7FtZBJ7JiY7Ku9ALy8=";
+  npmDepsHash = "sha256-yRDTPVdSPIeVU0aTxBmPSnHPGR54GAQ0d994bcIUXeo=";
   npmDepsFetcherVersion = 2;
 
   dontNpmBuild = true;
